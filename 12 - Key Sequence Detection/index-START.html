@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Key Detection</title>
-  <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
-</head>
-<body>
-<script>
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <script
+      type="text/javascript"
+      src="https://www.cornify.com/js/cornify.js"
+    ></script>
+  </head>
+  <body>
+    <script>
+      const keyPushed = [];
+      const secretKey = 'speeders';
+      function keyUp(e) {
+        keyPushed.push(e.key);
+        //keep array length the same as the secret key
+        if (keyPushed.length > secretKey.length) {
+          keyPushed.shift();
+        }
+        // check if the keys pushed are the secret key
+        if (keyPushed.join('') === secretKey) {
+          cornify_add();
+        }
+      }
+      window.addEventListener('keyup', keyUp);
+    </script>
+  </body>
 </html>
