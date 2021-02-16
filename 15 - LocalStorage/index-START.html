@@ -51,13 +51,16 @@
         <input type="text" name="item" placeholder="Item Name" required />
         <input type="submit" value="+ Add Item" />
       </form>
-      <button>check all</button>
+      <button class="checkAll">select all</button>
+      <button class="checkNone">deselect all</button>
     </div>
 
     <script>
       const addItems = document.querySelector('.add-items');
       const itemsList = document.querySelector('.plates');
       const items = JSON.parse(localStorage.getItem('items')) || [];
+      const checkButton = document.querySelector('.checkAll');
+      const deselectButton = document.querySelector('.checkNone');
       //add item from input
       function addItem(e) {
         e.preventDefault();
@@ -104,9 +107,35 @@
         localStorage.setItem('items', JSON.stringify(items));
         renderList(items, itemsList);
       }
+
+      //check all boxes
+      function checkAll(e) {
+        items.forEach((item) => {
+          console.log(item.done);
+          if (!item.done) {
+            item.done = true;
+          }
+        });
+        localStorage.setItem('items', JSON.stringify(items));
+        renderList(items, itemsList);
+      }
+
+      function checkNone(e) {
+        items.forEach((item) => {
+          console.log(item.done);
+          if (item.done) {
+            item.done = false;
+          }
+        });
+        localStorage.setItem('items', JSON.stringify(items));
+        renderList(items, itemsList);
+      }
+
       //event listeners
       addItems.addEventListener('submit', addItem);
       itemsList.addEventListener('click', toggleDone);
+      checkButton.addEventListener('click', checkAll);
+      deselectButton.addEventListener('click', checkNone);
     </script>
   </body>
 </html>
